@@ -1886,5 +1886,48 @@
     document.addEventListener('visibilitychange', () => { if (!document.hidden) { tick(); renderUI(); } });
     setInterval(() => { if (!document.hidden) renderUI(); }, 60000);
   </script>
+  <!-- ===== 사용법 설명서 ===== -->
+<div id="helpModal" class="fixed inset-0 bg-stone-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+  <div class="clay-card max-w-md w-full p-6 flex flex-col gap-3 max-h-[90vh] overflow-y-auto text-xs text-stone-600 leading-relaxed">
+    <div class="flex items-center justify-between">
+      <h3 class="text-base font-extrabold text-clay-charcoal">🌲 마감의 숲 뽀모도로 사용법</h3>
+      <button id="btnCloseHelp" class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-500 hover:bg-stone-200"><i class="ph-bold ph-x"></i></button>
+    </div>
+    <p>집중하는 만큼 자라는 작은 친구 <b>고치</b>를 키워요.</p>
+    <div class="bg-stone-50 rounded-2xl border border-stone-100 p-3 flex flex-col gap-1.5">
+      <b class="text-clay-charcoal">✍️ 키우는 법</b>
+      <span>• 집중을 한 번 끝내면 알이 깨어나요.</span>
+      <span>• 집중이 끝날 때마다 고치가 그동안 한 일을 알려 줘요.</span>
+      <span>• 쉬는 시간마다 <b>돌봄 하트 3개</b>가 생겨요. 밥·씻기·놀기·산책에 써 주세요.</span>
+      <span>• 며칠 못 와도 굶지 않지만, 돌봄을 계속 건너뛰면 아플 수 있어요.</span>
+      <span>• 돌봐 준 방식에 따라 <b>다섯 가지 모습</b>으로 진화해요.</span>
+      <span>• 집중 40회를 채우면 여행을 보내고 새 알을 받을 수 있어요.</span>
+    </div>
+    <div class="bg-stone-50 rounded-2xl border border-stone-100 p-3 flex flex-col gap-1.5">
+      <b class="text-clay-charcoal">⚙️ 알아 두면 좋아요</b>
+      <span>• 작업실 이름은 맨 위 제목을, 작품 제목은 오른쪽 칸을 눌러 적어요.</span>
+      <span>• 타이머 옆 <b>알림 켜기</b>를 누르면 다른 창에서도 알려 줘요.</span>
+      <span>• 톱니바퀴 <b>설정</b>에서 집중·휴식 시간을 바꿀 수 있어요.</span>
+      <span>• 계절마다, 할로윈 같은 날마다 한정 수집품이 나와요.</span>
+    </div>
+    <div class="bg-amber-50/80 rounded-2xl border border-amber-200/70 p-3 flex flex-col gap-1.5">
+      <b class="text-clay-charcoal">💾 꼭 읽어 주세요</b>
+      <span>기록은 <b>지금 쓰는 브라우저에만</b> 저장돼요. 다른 사람은 볼 수 없고, PC와 폰은 따로 키워져요. 브라우저 기록을 지우면 고치도 사라지니, 옮기거나 지우기 전엔 <b>설정 → 백업</b>을 해 주세요!</span>
+    </div>
+    <button id="btnHelpOk" class="clay-btn py-2.5 rounded-xl bg-clay-coral text-white font-bold text-sm shadow-sm">알겠어요!</button>
+  </div>
+</div>
+<script>
+  (function () {
+    const modal = document.getElementById('helpModal');
+    const open = () => modal.classList.remove('opacity-0', 'pointer-events-none');
+    const close = () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      try { localStorage.setItem('MAGAM_FOREST_HELP_SEEN', '1'); } catch (e) {}
+    };
+    const btn = document.createElement('button');
+    btn.id = 'btnHelp';
+    btn.title = '사용법';
+    btn.className = 'clay-btn w-9 h-9 rounded-2xl bg-white
 </body>
 </html>
