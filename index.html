@@ -133,6 +133,21 @@
     ::-webkit-scrollbar-track { background: #faf5ee; border-radius: 99px; }
     ::-webkit-scrollbar-thumb { background: #dfd1c2; border-radius: 99px; }
     ::-webkit-scrollbar-thumb:hover { background: #c5b5a4; }
+        /* ===== 글씨 크기 조절 ===== */
+    :root {
+      --fs-small: 1.5;  /* 작은 글씨 배율 (설명, 버튼, 상태 등) */
+      --fs-big: 1.25;   /* 큰 글씨 배율 (제목, 타이머 숫자) */
+    }
+    .text-\[9px\]  { font-size: calc(9px * var(--fs-small)) !important; }
+    .text-\[10px\] { font-size: calc(10px * var(--fs-small)) !important; }
+    .text-\[11px\] { font-size: calc(11px * var(--fs-small)) !important; }
+    .text-xs   { font-size: calc(0.75rem * var(--fs-small)) !important; line-height: 1.5 !important; }
+    .text-sm   { font-size: calc(0.875rem * var(--fs-small)) !important; line-height: 1.5 !important; }
+    .text-base { font-size: calc(1rem * var(--fs-big)) !important; }
+    .text-lg   { font-size: calc(1.125rem * var(--fs-big)) !important; }
+    .text-xl   { font-size: calc(1.25rem * var(--fs-big)) !important; }
+    .text-3xl  { font-size: calc(1.875rem * var(--fs-big)) !important; }
+    .text-4xl  { font-size: calc(2.25rem * var(--fs-big)) !important; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-amber-100">
@@ -166,7 +181,10 @@
         <span id="navPetName">토끼 고치</span>
         <span class="text-[11px] px-1.5 py-0.2 rounded-md bg-stone-100 text-clay-coral font-extrabold"><span id="navPetLevel">알</span></span>
       </button>
-
+      <!-- Help -->
+      <button id="btnHelp" title="사용법" class="clay-btn w-9 h-9 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-clay-charcoal shadow-clay-sm">
+        <span class="text-base font-black text-stone-600">?</span>
+      </button>
       <!-- Settings -->
       <button id="btnSettings" title="설정" class="clay-btn w-9 h-9 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-clay-charcoal shadow-clay-sm">
         <i class="ph-bold ph-gear-six text-base text-stone-600"></i>
@@ -1921,25 +1939,14 @@
   (function () {
     function setupHelp() {
       const modal = document.getElementById('helpModal');
-      if (!modal || document.getElementById('btnHelp')) return;
+      const btn = document.getElementById('btnHelp');
+      if (!modal || !btn) return;
       if (modal.parentNode !== document.body) document.body.appendChild(modal);
       const open = () => modal.classList.remove('opacity-0', 'pointer-events-none');
       const close = () => {
         modal.classList.add('opacity-0', 'pointer-events-none');
         try { localStorage.setItem('MAGAM_FOREST_HELP_SEEN', '1'); } catch (e) {}
       };
-      const btn = document.createElement('button');
-      btn.id = 'btnHelp';
-      btn.title = '사용법';
-      btn.innerHTML = '<i class="ph-bold ph-question text-base text-stone-600"></i>';
-      const anchor = document.getElementById('btnSettings') || document.getElementById('btnSoundToggle');
-      if (anchor) {
-        btn.className = 'clay-btn w-9 h-9 rounded-2xl bg-white border border-stone-200 flex items-center justify-center text-clay-charcoal shadow-clay-sm';
-        anchor.parentNode.insertBefore(btn, anchor);
-      } else {
-        btn.className = 'fixed bottom-4 right-4 z-40 w-11 h-11 rounded-full bg-white border border-stone-200 flex items-center justify-center shadow-clay-sm';
-        document.body.appendChild(btn);
-      }
       btn.addEventListener('click', open);
       document.getElementById('btnCloseHelp').addEventListener('click', close);
       document.getElementById('btnHelpOk').addEventListener('click', close);
